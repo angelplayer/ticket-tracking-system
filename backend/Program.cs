@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using Backend.Configuration;
 using Backend.Domain;
+using Backend.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +22,8 @@ builder.Services
 
 
 builder.Services
-.AddDbContext<TTSContext>(options => options.UseInMemoryDatabase("ttscontext"));
+.AddDbContext<TTSContext>(options => options.UseInMemoryDatabase("ttscontext"))
+.AddTransient<ITicketService, TicketService>();
 
 builder.Services
 .AddJWT(builder.Configuration);
