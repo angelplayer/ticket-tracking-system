@@ -23,7 +23,8 @@ builder.Services
 
 builder.Services
 .AddDbContext<TTSContext>(options => options.UseInMemoryDatabase("ttscontext"))
-.AddTransient<ITicketService, TicketService>();
+.AddTransient<ITicketService, TicketService>()
+.AddTransient<IUserService, UserService>();
 
 builder.Services
 .AddJWT(builder.Configuration);

@@ -1,16 +1,11 @@
 using System.Text;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Threading.Tasks;
+
 using Backend.Configuration.Implementation;
+using Backend.Policy;
 
 namespace Backend.Configuration
 {
@@ -53,9 +48,10 @@ namespace Backend.Configuration
       {
         options.DefaultPolicy = new AuthorizationPolicyBuilder()
           .RequireAuthenticatedUser()
-          .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme, "oidc")
+          .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
           .Build();
       })
+      .AddAuthorizationPolicies()
       .AddAuthentication(options =>
       {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -90,9 +86,11 @@ namespace Backend.Configuration
     public static IServiceCollection AddAuthorizationPolicies(this IServiceCollection serviceCollection)
     {
 
+      serviceCollection.AddSingleton<IAuthorizationHandler, CreateTicketPolicyHandle>();
+
       serviceCollection.AddAuthorization(configuration =>
       {
-
+        configuration.AddPolicy("CreateTicketPolicy", policy => policy.AddRequirements(new CreateTicketRequirement()));
       });
 
       return serviceCollection;

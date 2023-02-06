@@ -1,6 +1,7 @@
 
 using Backend.Domain;
 using Backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Features.Ticket
@@ -33,6 +34,8 @@ namespace Backend.Features.Ticket
 		[HttpPost]
 		public async Task<IActionResult> CreateTicket([FromBody] CreateTicketRequest request)
 		{
+
+			// Check creation policy
 			return Ok(await ticketService.createTicket(
 				request.summery,
 				request.description,
