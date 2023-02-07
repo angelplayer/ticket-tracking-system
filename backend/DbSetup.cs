@@ -1,3 +1,4 @@
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the MIT license.  See License.txt in the project root for license information.
 
 using Backend.Configuration;
 using Backend.Domain;
@@ -17,11 +18,11 @@ namespace DbSetup
       var salt = Guid.NewGuid().ToByteArray(); // 
 
       var qaElysia = new User() { Id = Guid.NewGuid(), Username = "elysia", UserType = UserType.QA, PasswordHash = await passwordHasher.Hash("123", salt), Salt = salt };
-			var rdKevin = new User() { Id = Guid.NewGuid(), Username = "kevin", UserType = UserType.RD, PasswordHash = await passwordHasher.Hash("321", salt), Salt = salt };
-			var pmEden = new User() { Id = Guid.NewGuid(), Username ="eden", UserType = UserType.PM, PasswordHash = await passwordHasher.Hash("456", salt), Salt = salt };
+      var rdKevin = new User() { Id = Guid.NewGuid(), Username = "kevin", UserType = UserType.RD, PasswordHash = await passwordHasher.Hash("321", salt), Salt = salt };
+      var pmEden = new User() { Id = Guid.NewGuid(), Username = "eden", UserType = UserType.PM, PasswordHash = await passwordHasher.Hash("456", salt), Salt = salt };
 
-			context.Users.AddRange(qaElysia, rdKevin, pmEden);
-			await context.SaveChangesAsync();
+      context.Users.AddRange(qaElysia, rdKevin, pmEden);
+      await context.SaveChangesAsync();
 
     }
 

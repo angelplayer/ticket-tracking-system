@@ -1,4 +1,4 @@
-
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the MIT license.  See License.txt in the project root for license information.
 
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -14,7 +14,7 @@ namespace Backend.Configuration.Implementation
 
     public TokenService(IOptions<JwtIssuerOptions> options)
     {
-      this.jwtOptions = options.Value;
+      jwtOptions = options.Value;
     }
 
     public string CreateToken(string username, params string[] scopes)

@@ -1,4 +1,4 @@
-
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the MIT license.  See License.txt in the project root for license information.
 
 using Backend.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +16,7 @@ namespace Backend.Services
     public async Task<Ticket> GetTicketById(string ticketId)
     {
 
-      var ticket = await this.context.Tickets
+      var ticket = await context.Tickets
       .SingleOrDefaultAsync(ticket => ticket.Id.ToString().SequenceEqual(ticketId));
 
       return ticket ?? throw new DomainException("ticket_not_found", DomainExceptionCode.NotFound);
@@ -41,13 +41,13 @@ namespace Backend.Services
 
     public async Task<Ticket> UpdateTicket(string ticketId, string summery, string description)
     {
-			var ticket = await GetTicketById(ticketId);
-			ticket.Summery = summery;
-			ticket.Description = description;
-			context.Update(ticket);
-			await context.SaveChangesAsync();
+      var ticket = await GetTicketById(ticketId);
+      ticket.Summery = summery;
+      ticket.Description = description;
+      context.Update(ticket);
+      await context.SaveChangesAsync();
 
-			return ticket;
+      return ticket;
     }
 
     public async Task<Ticket> createTicket(string summery, string description, TicketType type)

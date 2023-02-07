@@ -1,4 +1,4 @@
-
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the MIT license.  See License.txt in the project root for license information.
 
 using Backend.Configuration;
 using Backend.Domain;
@@ -8,22 +8,22 @@ using Microsoft.EntityFrameworkCore;
 namespace Backend.Features.Auth
 {
 
-	// Request/Reply dto
-	public record LoginRequest(string Username, string Password);
+  // Request/Reply dto
+  public record LoginRequest(string Username, string Password);
   public record LoginReplay(string Access_token, string Username);
   public record CreateUserRequest(string Username, string Password);
 
 
 
-	[Route("api/[Controller]")]
+  [Route("api/[Controller]")]
   [ApiController]
-  public class AuthController: ControllerBase
+  public class AuthController : ControllerBase
   {
 
-		 [HttpPost("login")]
+    [HttpPost("login")]
     public async Task<IActionResult> LoginAsync(LoginRequest request)
     {
-  
+
 
       var user = await context.Users.SingleOrDefaultAsync(user => user.Username.SequenceEqual(request.Username));
       if (user == null)
@@ -41,16 +41,16 @@ namespace Backend.Features.Auth
       return Ok(new Replay(true, new LoginReplay(token, user.Username)));
     }
 
-    public AuthController(TTSContext context, IPasswordHasher passwordHasher, ITokenService tokenService) { 
-			this.tokenService = tokenService;
-			this.passwordHasher = passwordHasher;
+    public AuthController(TTSContext context, IPasswordHasher passwordHasher, ITokenService tokenService)
+    {
+      this.tokenService = tokenService;
+      this.passwordHasher = passwordHasher;
       this.context = context;
-		}
+    }
 
-
-    readonly IPasswordHasher passwordHasher;
-    readonly ITokenService tokenService;
-    readonly TTSContext context;
+    private readonly IPasswordHasher passwordHasher;
+    private readonly ITokenService tokenService;
+    private readonly TTSContext context;
 
   }
 }

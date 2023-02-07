@@ -1,10 +1,11 @@
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the MIT license.  See License.txt in the project root for license information.
 
 using System.Security.Cryptography;
 using System.Text;
 
 namespace Backend.Configuration.Implementation
 {
-	public class PasswordHasher : IPasswordHasher
+  public class PasswordHasher : IPasswordHasher
   {
     private readonly HMACSHA512 x = new(Encoding.UTF8.GetBytes("ASSETS_SERVER"));
 

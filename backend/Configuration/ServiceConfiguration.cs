@@ -1,11 +1,12 @@
-using System.Text;
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the MIT license.  See License.txt in the project root for license information.
+
 using System.Security.Claims;
+using System.Text;
+using Backend.Configuration.Implementation;
+using Backend.Policy;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
-
-using Backend.Configuration.Implementation;
-using Backend.Policy;
 
 namespace Backend.Configuration
 {
@@ -50,8 +51,20 @@ namespace Backend.Configuration
           .RequireAuthenticatedUser()
           .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
           .Build();
+
+        // options.AddPolicy("DeleteTicketPolicy", policy => policy.Requirements.Add(new DeleteTicketRequirement()));
+        // options.AddPolicy("CreateTicketPolicy", policy => policy.Requirements.Add(new CreateTicketRequirement()));
+        // options.AddPolicy("ModifyTicketPolicy", policy => policy.Requirements.Add(new ModifyTicketRequirement()));
+        options.AddPolicy("CreateTicketPolicy", policy => policy.AddRequirements(new TicketPolicyRequirement(Domain.UserType.QA)));
+        options.AddPolicy("ModifyTicketPolicy", policy => policy.AddRequirements(new TicketPolicyRequirement(Domain.UserType.QA)));
+        options.AddPolicy("DeleteTicketPolicy", policy => policy.AddRequirements(new TicketPolicyRequirement(Domain.UserType.QA)));
+        options.AddPolicy("ResolveTicketPolicy", policy => policy.AddRequirements(new TicketPolicyRequirement(Domain.UserType.RD)));
+
       })
-      .AddAuthorizationPolicies()
+      // .AddScoped<IAuthorizationHandler, CreateTicketPolicyHandle>()
+      // .AddScoped<IAuthorizationHandler, DeleteTicketPolicyHandler>()
+      // .AddScoped<IAuthorizationHandler, ModifyTicketHandler>()
+      .AddTransient<IAuthorizationHandler, TicketPolicyHandler>()
       .AddAuthentication(options =>
       {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -81,21 +94,6 @@ namespace Backend.Configuration
 
       return serviceCollection;
     }
-
-
-    public static IServiceCollection AddAuthorizationPolicies(this IServiceCollection serviceCollection)
-    {
-
-      serviceCollection.AddSingleton<IAuthorizationHandler, CreateTicketPolicyHandle>();
-
-      serviceCollection.AddAuthorization(configuration =>
-      {
-        configuration.AddPolicy("CreateTicketPolicy", policy => policy.AddRequirements(new CreateTicketRequirement()));
-      });
-
-      return serviceCollection;
-    }
-
   }
 
 
