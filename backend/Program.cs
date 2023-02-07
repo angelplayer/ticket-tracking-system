@@ -58,7 +58,7 @@ using (var scope = app.Services.CreateScope())
   await DbSetup.DbSetup.SetupAsync(context, passwordHasher);
 }
 
-
+app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpLogging();
 app.UseCors("api");
 app.UseAuthentication();
