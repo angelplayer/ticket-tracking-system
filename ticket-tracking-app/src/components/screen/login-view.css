@@ -1,0 +1,57 @@
+.login-screen {
+	margin-top: 1em;
+}
+
+.error-message {
+	line-height: 16px;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 0.5rem 1rem;
+	margin-bottom: 0.5rem;
+	background-color: #d85454;
+}
+
+form {
+	margin: 1rem 0;
+	width: 600px;
+	border: 0.5px solid rgba(128, 128, 128, 0.3);
+	padding: 1rem;
+}
+
+input, textarea, select, option {
+	line-height: 16px;
+	display: inline-block;
+	padding: 0.5rem 1rem; 
+	width: 230px;
+	margin-bottom: 1rem;
+	border: var(--border-thin);
+	border-radius: var(--rounded);
+	outline: none;
+}
+
+label {
+	display: inline-block;
+	width: 140px;
+	padding: 0.5rem 1rem; 
+	text-align: right;
+}
+
+button {
+	padding: 0.5rem 1.6rem; 
+	border: var(--border-thin);
+	border-radius: var(--rounded);
+	background-color: var(--primary);
+	color: white;
+	cursor: pointer;
+}
+
+.form-align-top {
+	display: flex;
+	align-items: start;
+}
+
+.testing {
+	padding: 2rem;
+	border: var(--border-thin);
+	border-radius: var(--rounded);
+}

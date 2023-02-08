@@ -1,0 +1,26 @@
+.actionbar {
+	padding: 1rem;
+	background: var(--primary);
+}
+
+.actionbar a {
+	margin-right: 1rem;
+	text-decoration: none;
+	font-weight: 500;
+	color: white;
+}
+
+
+.actionbar a:hover {
+	opacity: 0.6;
+}
+
+.actionbar-group {
+	display: flex;
+}
+
+.logout {
+	display: block;
+	margin-left: auto !important;
+	cursor: pointer;
+}

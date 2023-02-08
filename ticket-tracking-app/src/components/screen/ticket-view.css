@@ -1,0 +1,8 @@
+.ticket-list {
+	min-height: 70vh;
+	margin-bottom: 5rem;
+}
+
+.ticket-item {
+	margin-bottom: 1rem;
+}
