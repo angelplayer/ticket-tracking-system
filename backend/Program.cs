@@ -61,6 +61,7 @@ using (var scope = app.Services.CreateScope())
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpLogging();
 app.UseCors("api");
+app.MapGet("/", () => Results.Redirect("/swagger"));
 app.UseAuthentication();
 app.UseAuthorization();
 
