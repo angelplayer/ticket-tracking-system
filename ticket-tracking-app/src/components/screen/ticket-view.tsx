@@ -27,7 +27,7 @@ export function TicketView() {
 
 	return (
 		<div>
-			<h2>Ticket list:</h2>
+			<h2>Ticket list</h2>
 			<div className="ticket-list">
 					{
 						isSuccess && meResult.isSuccess ? (

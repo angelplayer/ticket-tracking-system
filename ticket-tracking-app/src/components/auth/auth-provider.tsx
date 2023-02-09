@@ -23,6 +23,7 @@ export const AuthenticationProvider = ( { children }) => {
 
 		signOut() {
 			destroyUserToken();
+      setState(false);
 		}
 	}
 
